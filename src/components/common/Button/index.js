@@ -1,8 +1,8 @@
 import React from 'react';
 import "./styles.css";
-function Button({text,onClick,disabled}) {
+function Button({text,onClick,disabled,width}) {
   return (
-    <div onClick={onClick} className='custom-btn' disabled={disabled}>
+    <div onClick={onClick} className='custom-btn' disabled={disabled} style={{width:width}}>
       {text}
     </div>
   )

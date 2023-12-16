@@ -5,23 +5,66 @@ import InputComponent from '../common/Input';
 import { toast } from 'react-toastify';
 import Button from '../common/Button';
 import FileInput from "../common/Input/FileInput"
+import {getDownloadURL, ref, uploadBytes} from "firebase/storage"
+import {auth , db, storage} from "../../firebase"
+import { addDoc, collection } from 'firebase/firestore';
 
 function CreatePodcastForm() {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [displayImage,setDisplayImage] = useState();
     const [bannerImage,setBannerImage] = useState();
-
+    
     const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleSubmit =()=>{
+    const handleSubmit = async ()=>{
         toast.success("Handling Form");
         if(title && desc && displayImage && bannerImage){
+            //1. Upload files -> get downlodable links
+            setLoading(true);
+            try{
+                const bannerImageRef = ref(
+                    storage,
+                    `podcasts/${auth.currentUser.uid}/${Date.now()}`
+                );
+                await uploadBytes(bannerImageRef,bannerImage);
 
+                const bannerImageUrl = await getDownloadURL(bannerImageRef);
+
+                const displayImageRef = ref(
+                    storage,
+                    `podcasts/${auth.currentUser.uid}/${Date.now()}`
+                );
+                await uploadBytes(displayImageRef,displayImage);
+
+                const displayImageUrl = await getDownloadURL(displayImageRef);
+
+                const podcastData = {
+                    title: title,
+                    description: desc,
+                    bannerImage:bannerImageUrl,
+                    displayImage:displayImageUrl,
+                    createdBy:auth.currentUser.uid,
+                };
+
+                const docRef = await addDoc(collection(db,"podcasts"),podcastData);
+
+                setTitle("");
+                setDesc("");
+                setBannerImage("");
+                setDisplayImage("");
+                toast.success("Podcast Created!");
+                setLoading(false);
+            } catch(e){
+                toast.error(e.message);
+                console.log(e);
+                setLoading(false);
+            }
         } else{
             toast.error("Please Enter All Values");
+            setLoading(false);
         }
     }
 
@@ -41,7 +84,6 @@ function CreatePodcastForm() {
             placeholder="Title" 
             type="text" 
             required={true} 
-
         />
         <InputComponent 
             state={desc} 
@@ -49,7 +91,6 @@ function CreatePodcastForm() {
             placeholder="Description" 
             type="email" 
             required={true} 
-
         />
 
         <FileInput

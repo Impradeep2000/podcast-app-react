@@ -22,7 +22,7 @@ const SignupForm = () => {
     const handleSignup = async ()=>{
         console.log("Handling Signup...");
         setLoading(true);
-        if(password === confirmPassword && password.length>=6){
+        if(fullName && email && password === confirmPassword && password.length>=6){
             try{
                 // Creating user's account.
                 const userCredential = await createUserWithEmailAndPassword(
@@ -56,7 +56,9 @@ const SignupForm = () => {
             }
         }else{
             //throw an error
-            if(password !== confirmPassword){
+            if(!fullName || !email || !password || !confirmPassword){
+                toast.error("all fields required")
+            }else if(password !== confirmPassword){
                 toast.error("Password Doesn't Match");
             } else if(password.length<6){
                 toast.error("Password Should be of 6 digits");
