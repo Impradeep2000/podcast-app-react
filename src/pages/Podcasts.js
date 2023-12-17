@@ -4,7 +4,7 @@ import { collection, onSnapshot, query } from 'firebase/firestore'
 import { db } from '../firebase'
 import { setPodcasts } from '../slices/podcastSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import PodcastCard from '../components/common/Podcasts/PodcastCard'
+import PodcastCard from '../components/Podcasts/PodcastCard'
 import InputComponent from '../components/common/Input'
 function PodcastsPage() {
     const dispatch =useDispatch();

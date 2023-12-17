@@ -5,13 +5,14 @@ import Button from '../components/common/Button';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { toast } from 'react-toastify';
+import Loader from '../components/common/Loader';
 
 function Profile() {
   const user = useSelector((state)=>state.user.user);
   console.log("My user", user);
   
   if(!user){
-    return <p>Loading...</p>
+    return <Loader />
   }
 
   const handleLogout = () =>{

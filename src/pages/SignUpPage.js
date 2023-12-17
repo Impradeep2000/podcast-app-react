@@ -8,7 +8,6 @@ function SignUpPage() {
   
   const [flag,setFlag] = useState(false);
 
-
   return (
     <div>
         <Header />
