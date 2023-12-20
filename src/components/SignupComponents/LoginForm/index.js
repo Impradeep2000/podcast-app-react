@@ -37,7 +37,7 @@ const LoginForm = () => {
                         name: userData.name,
                         email: userData.email,
                         uid: userData.uid,
-                        // profilePic: userData.profilePic
+                        profilePic: userData.profilePic,
                     })
                 );
                 toast.success("Login Successful!")

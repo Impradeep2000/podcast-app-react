@@ -93,7 +93,7 @@ function AudioPlayer({audioSrc,image}) {
                 max={duration}
                 value={currentTime}
                 onChange={handleDuration}
-                step={0.01}
+                step={0.001}
                 className='duration-range'
             />
             <p>-{formatTime(duration-currentTime)}</p>
@@ -103,7 +103,7 @@ function AudioPlayer({audioSrc,image}) {
                 value={volume}
                 max={1}
                 min={0}
-                step={0.01}
+                step={0.001}
                 onChange={handleVolume}
                 className='volume-range'
             />

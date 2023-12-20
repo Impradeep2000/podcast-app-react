@@ -51,6 +51,8 @@ function CreatePodcastForm() {
 
                 const docRef = await addDoc(collection(db,"podcasts"),podcastData);
 
+                setLoading(false);
+                navigate(`/profile`)
                 setTitle("");
                 setDesc("");
                 setBannerImage("");

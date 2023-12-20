@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
 import Button from '../../common/Button';
 import InputComponent from '../../common/Input';
-import { auth, db } from "../../../firebase";
+import FileInput from "../../common/Input/FileInput"
+import { auth, db, storage } from "../../../firebase";
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
 import {setUser} from "../../../slices/userSlice";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const SignupForm = () => {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [displayImage, setDisplayImage] = useState();
     const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -34,10 +37,20 @@ const SignupForm = () => {
                 const user = userCredential.user;
                 console.log("user", user);
                 // Saving user's details.
+                
+                const displayImageRef = ref(
+                    storage,
+                    `podcasts/${auth.currentUser.uid}/${Date.now()}`
+                );
+                await uploadBytes(displayImageRef,displayImage);
+
+                const displayImageUrl = await getDownloadURL(displayImageRef);
+
                 await setDoc(doc(db,"users", user.uid),{
                     name: fullName,
                     email: user.email,
                     uid:user.uid,
+                    profilePic:displayImageUrl ,
                 });
 
                 // Save data in the redux, call the redux action
@@ -45,6 +58,7 @@ const SignupForm = () => {
                     name: fullName,
                     email: user.email,
                     uid:user.uid,
+                    profilePic: displayImageUrl,
                 }))
                 toast.success("User has been created!")
                 setLoading(false);
@@ -66,6 +80,12 @@ const SignupForm = () => {
             setLoading(false);
         }
     };
+
+    const profileImageHandle = (file)=>{
+        setDisplayImage(file);
+        console.log(file)
+    }
+
 
   return (
     <>
@@ -99,6 +119,12 @@ const SignupForm = () => {
             type="password" 
             required={true} 
 
+        />
+        <FileInput
+        id={"user-image"}
+        fileHandleFnc={profileImageHandle}
+        accept={"image/*"} 
+        text={"Upload Display Image"}
         />
         <Button text={loading ? "Loading...":"Signup"} disabled={loading} onClick={handleSignup} />
     </>

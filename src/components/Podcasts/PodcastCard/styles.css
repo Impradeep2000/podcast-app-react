@@ -28,3 +28,10 @@
     text-decoration: none !important;
     margin: 0.5rem 0rem;
 }
+.info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: #91879c;
+}

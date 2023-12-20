@@ -35,7 +35,7 @@ function PodcastsPage() {
   return (
     <div>
         <Header />
-        <div className='input-wrapper' style={{marginTop:"2rem"}}>
+        <div className='input-wrapper' style={{marginTop:"2rem", paddingBottom:"2rem"}}>
             <h1>Discover Podcasts</h1>
             <InputComponent 
                 state={search} 

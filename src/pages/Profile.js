@@ -1,37 +1,70 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Header from '../components/common/Header';
-import Button from '../components/common/Button';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
-import { toast } from 'react-toastify';
+import PodcastCard from "../components/Podcasts/PodcastCard"
 import Loader from '../components/common/Loader';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
 
 function Profile() {
   const user = useSelector((state)=>state.user.user);
-  console.log("My user", user);
-  
+  const [podcasts,setPodcasts] = useState([]);
+  // console.log("My user", user);
+  useEffect(() => {
+    const fetchDocs = async () => {
+      const q = query(
+        collection(db, "podcasts"),
+        where("createdBy", "==", user.uid)
+      );
+      const querySnapshot = await getDocs(q);
+      const docsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPodcasts(docsData);
+    };
+    if (user) {
+      fetchDocs();
+    }
+  }, [user]);
+
   if(!user){
     return <Loader />
   }
 
-  const handleLogout = () =>{
-    signOut(auth)
-    .then(()=>{
-      toast.success("User Logged Out!");
-    })
-    .catch((error)=>{
-      toast.error(error.messase);
-    });
-  };
 
   return (
   <div>
     <Header/>
-    <h1>{user.name}</h1>
-    <h1>{user.email}</h1>
-    <h1>{user.uid}</h1>
-    <Button text={"Logout"} onClick={handleLogout}  />
+    <div className='input-wrapper'>
+      <h1>Profile</h1>
+      <div
+        style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "2rem",
+            }}
+      >
+        <PodcastCard title={user.name} displayImage={user.profilePic} />
+      </div>
+      <h1 style={{ marginBottom: "2rem" }}>My Podcasts</h1>
+      <div className="podcast-flex">
+          {podcasts.length === 0 ? (
+            <p style={{ fontSize: "1.2rem" }}>You Have Zero Podcasts</p>
+          ) : (
+            <>
+              {podcasts.map((podcast) => (
+                <PodcastCard
+                  key={podcast.id}
+                  id={podcast.id}
+                  title={podcast.title}
+                  displayImage={podcast.displayImage}
+                />
+              ))}
+            </>
+          )}
+        </div>
+    </div>
   </div>
   )
 }

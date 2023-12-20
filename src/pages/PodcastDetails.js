@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../components/common/Header'
 import { useNavigate, useParams } from 'react-router-dom'
 import {auth, db} from "../firebase"
-import {collection, collectionGroup, doc, getDoc, onSnapshot, query} from "firebase/firestore"
+import {collection, doc, getDoc, onSnapshot, query} from "firebase/firestore"
 import { toast } from 'react-toastify'
 import Button from "../components/common/Button"
 import EpisodeDetails from '../components/Podcasts/EpisodeDetails'
