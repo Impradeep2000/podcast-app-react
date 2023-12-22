@@ -36,7 +36,7 @@ function Profile() {
   return (
   <div>
     <Header/>
-    <div className='input-wrapper'>
+    <div className='input-wrapper' style={{marginTop:"2rem", paddingBottom:"2rem"}}>
       <h1>Profile</h1>
       <div
         style={{
@@ -48,7 +48,7 @@ function Profile() {
         <PodcastCard title={user.name} displayImage={user.profilePic} />
       </div>
       <h1 style={{ marginBottom: "2rem" }}>My Podcasts</h1>
-      <div className="podcast-flex">
+      <div className="podcasts-flex">
           {podcasts.length === 0 ? (
             <p style={{ fontSize: "1.2rem" }}>You Have Zero Podcasts</p>
           ) : (

@@ -26,3 +26,10 @@
 .active{
     border-color: var(--white);
 }
+
+@media (max-width:768px){
+    .custom-input{
+        width: 80vw;
+        font-size: 0.8rem;
+    }
+}

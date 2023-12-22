@@ -33,3 +33,17 @@
 .active{
     color: var(--white) !important;
 }
+
+
+@media (max-width: 768px) {
+    .shadow{
+    position: absolute;
+    width: 400px;
+    height: 100px;
+    margin: auto;
+    background: var(--blue);
+    filter: blur(60px);
+    z-index: -1;
+    top: -80px;
+    }
+}

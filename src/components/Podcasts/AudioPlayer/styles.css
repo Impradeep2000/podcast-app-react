@@ -1,5 +1,5 @@
 .custom-audio-player{
-    width: 100%;
+    width: 100vw;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -35,4 +35,21 @@
 
 .audio-btn{
     cursor: pointer;
+}
+
+@media (max-width:768px){
+    .custom-audio-player{
+        padding: 0.5rem 0rem;
+        gap: 1.5rem;
+    }
+    .display-image-player{
+        height: 35px;
+        width: 35px;
+    }
+    .duration-flex{
+        width: 65%;
+    }
+    .volume-range{
+        width: 40%;
+    }
 }

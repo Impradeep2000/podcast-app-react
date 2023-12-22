@@ -35,3 +35,19 @@
     width: 100%;
     color: #91879c;
 }
+
+@media (max-width: 768px){
+    .podcast-card{
+        width: 120px;
+        min-height: 120px;
+        border-radius: 0.4rem;
+    }
+    .display-image-podcast{
+        height: 100px;
+        border-top-left-radius: 0.2rem;
+        border-top-right-radius: 0.2rem;
+    }
+    .title-podcast{
+        font-size: 0.7rem;
+    }
+}

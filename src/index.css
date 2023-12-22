@@ -74,13 +74,25 @@ a{
   text-align: left;
   width: 100%;
 }
-.podcast-flex{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  flex-wrap: wrap;
-  gap: 2rem;
+
+@media (max-width:768px){
+  .input-wrapper{
+    margin-bottom: 4rem;
+  }
+  .input-wrapper h1{
+    font-size: 1rem;
+    margin-bottom: 5rem;
+  }
+  .podcasts-flex{
+    gap: 1.5rem;
+  }
+  .banner-wrapper{
+    height: 150px;
+    padding: 0.3rem;
+    border-radius: 0.6rem;
+  }
+  .banner-wrapper img{
+    height: 150px !important;
+    border-radius: 0.6rem;
+  }
 }

@@ -15,3 +15,10 @@
     color: var(--theme);
     transition: all 0.2s;
 }
+
+@media (max-width:768px){
+    .custom-btn{
+        width: 80vw;
+        font-size: 0.8rem;
+    }
+}
