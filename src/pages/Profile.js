@@ -9,7 +9,7 @@ import { db } from '../firebase';
 function Profile() {
   const user = useSelector((state)=>state.user.user);
   const [podcasts,setPodcasts] = useState([]);
-  // console.log("My user", user);
+  console.log("My user", user);
   useEffect(() => {
     const fetchDocs = async () => {
       const q = query(

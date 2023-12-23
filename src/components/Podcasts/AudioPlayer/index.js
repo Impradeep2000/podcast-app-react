@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import "./styles.css"
-import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
+import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute, FaForward, FaBackward } from "react-icons/fa";
 function AudioPlayer({audioSrc,image}) {
     const [isPlaying,setIsPlaying] = useState(true)
     const [isMute,setIsMute] = useState(false)
@@ -31,6 +31,14 @@ function AudioPlayer({audioSrc,image}) {
         setVolume(e.target.value)
         audioRef.current.volume = e.target.value
     }
+
+    const handleForward = () => {
+          audioRef.current.currentTime += 10; 
+    };
+
+    const handleBackward = () => {
+        audioRef.current.currentTime -= 10; 
+    };
 
     const formatTime = (time) =>{
         const minutes = Math.floor(time/60);
@@ -85,7 +93,9 @@ function AudioPlayer({audioSrc,image}) {
     <div className='custom-audio-player'>
         <img src={image} className='display-image-player' />
         <audio ref={audioRef} src={audioSrc} />
+        <FaBackward className='audio-btn' onClick={handleBackward} />
         <p className='audio-btn' onClick={togglePlay}>{isPlaying ? <FaPause />:<FaPlay />}</p>
+        <FaForward className='audio-btn' onClick={handleForward}  />
         <div className='duration-flex'>
             <p>{formatTime(currentTime)}</p>
             <input

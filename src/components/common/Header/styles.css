@@ -46,4 +46,7 @@
     z-index: -1;
     top: -80px;
     }
+    .links a{
+        font-size:0.7rem
+    }
 }
