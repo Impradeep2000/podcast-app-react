@@ -13,7 +13,7 @@ function SignUpPage() {
         <Header />
         <div className='input-wrapper'>
           {!flag ?<h1>Sign Up</h1>:<h1>Login</h1>}
-          {!flag ?<SignupForm />: <LoginForm />}
+          {!flag ?<SignupForm />:<LoginForm />}
           {!flag ? (
             <p style={{cursor:"pointer"}} onClick={() =>setFlag(!flag)} >Already Have An Account? Click here to Login</p>
           ):(

@@ -29,7 +29,7 @@ function Header() {
     <div className='navbar'>
       <div className='shadow'></div>
       <div className='links'>
-        <Link to={"/"} className={currentPath === "/" ? "active" : ""}>SignUp</Link>
+        {!user && <Link to={"/"} className={currentPath === "/" ? "active" : ""}>SignUp</Link> }
         <Link to={"/podcasts"} className={currentPath === "/podcasts" ? "active" : ""}>Podcasts</Link>
         <Link to={"/create-a-podcast"} className={currentPath === "/create-a-podcast" ? "active" : ""}>Start A Podcast</Link>
         <Link to={"/profile"} className={currentPath === "/profile" ? "active" : ""}>Profile</Link>
